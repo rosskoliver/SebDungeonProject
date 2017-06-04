@@ -18,6 +18,7 @@ namespace SebDungeon.ViewModels
         public string Message { get; set; } = "hello\r\n";
         public string AlertMessage { get; set; }
         public bool CanFight { get; set; }
+        public string AsciiDiagram { get; set; }
 
         public ShellViewModel()
         {
@@ -91,7 +92,7 @@ namespace SebDungeon.ViewModels
                 Room = nextRoom;
             }
             CanFight = Room.TheEnemy != null && Room.TheEnemy.IsAlive;
-            
+            AsciiDiagram = Room.GetAsciiDiagram();
         }
 
         private void ShowMessage(string format, params object[] args)

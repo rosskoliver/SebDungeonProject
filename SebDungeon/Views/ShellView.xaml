@@ -35,7 +35,11 @@
                 <Button IsEnabled="{Binding Room.HasExit}" cal:Message.Attach="HandleOption('Exit')" x:Name="GoExit" Height="30" Grid.Column="3" Grid.Row="2">exit</Button>
             </Grid>
             <!-- main map -->
-            <Grid></Grid>
+            <Grid>
+                <TextBlock x:Name="AsciiDiagram" FontFamily="Courier New" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    data
+                </TextBlock>
+            </Grid>
         </DockPanel>
     </DockPanel>
 </Window>
