@@ -63,7 +63,7 @@ namespace SebDungeon.ViewModels
                 if (Room.TheEnemy.HasFought)
                     result = Hero.Fight(Room.TheEnemy);
                 else
-                    result = Room.TheEnemy.Fight(Hero);
+                    result = Room.TheEnemy.Fight(Hero); 
                 ShowMessage(result);
 
                 var didMiss = result.Contains("miss");
