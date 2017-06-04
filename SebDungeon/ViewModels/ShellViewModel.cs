@@ -53,9 +53,9 @@ namespace SebDungeon.ViewModels
             }
             if (option == "Pickup")
             {
-                ShowMessage("you pick up {0} gold pieces", Room.NumGold);
                 Hero.GoldCount += Room.NumGold;
                 Room.NumGold = 0;
+                ShowMessage("you pick up {0} gold pieces", Room.NumGold);
             }
             if (option == "Fight")
             {
@@ -67,12 +67,14 @@ namespace SebDungeon.ViewModels
                 ShowMessage(result);
 
                 var didMiss = result.Contains("miss");
-                if(!didMiss)
-                {
-                    var mediaPlayer = new MediaPlayer();
-                    mediaPlayer.Open(new Uri("Audio/Swords Clashing-SoundBible.com-912903192.mp3", UriKind.Relative));
-                    mediaPlayer.Play();
-                }
+                string soundFile;
+                if(didMiss)
+                    soundFile = ""; // sebbie to do
+                else
+                    soundFile = "Audio/Swords Clashing-SoundBible.com-912903192.mp3";
+                var mediaPlayer = new MediaPlayer();
+                mediaPlayer.Open(new Uri(soundFile, UriKind.Relative));
+                mediaPlayer.Play();
             }
 
             Room nextRoom = null;
