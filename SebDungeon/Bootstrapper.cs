@@ -12,6 +12,7 @@ namespace SebDungeon
     //Hi Daddy (write back☺)
     //hi are you going to code something now?
     //I'll try!
+    //you can do it! try and put in a sound for when you miss an attack.
 
     public class Bootstrapper : BootstrapperBase
     {
