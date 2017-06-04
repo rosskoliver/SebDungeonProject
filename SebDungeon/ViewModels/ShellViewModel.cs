@@ -43,7 +43,9 @@ namespace SebDungeon.ViewModels
 
         public void HandleOption(string option)
         {
-            if(!Hero.IsAlive)
+            string soundFile = null;
+
+            if (!Hero.IsAlive)
             {
                 ShowMessage("You are dead");
                 return;
@@ -54,9 +56,10 @@ namespace SebDungeon.ViewModels
             }
             if (option == "Pickup")
             {
+                soundFile = "Audio/cash-register-05.wav";
+                ShowMessage("you pick up {0} gold pieces", Room.NumGold);
                 Hero.GoldCount += Room.NumGold;
                 Room.NumGold = 0;
-                ShowMessage("you pick up {0} gold pieces", Room.NumGold);
             }
             if (option == "Fight")
             {
@@ -68,11 +71,14 @@ namespace SebDungeon.ViewModels
                 ShowMessage(result);
 
                 var didMiss = result.Contains("miss");
-                string soundFile;
                 if(didMiss)
                     soundFile = "Audio/Swoosh 3-SoundBible.com-1573211927.mp3"; // sebbie to do
                 else
                     soundFile = "Audio/Swords Clashing-SoundBible.com-912903192.mp3";
+             }
+
+            if (soundFile != null)
+            {
                 var mediaPlayer = new MediaPlayer();
                 mediaPlayer.Open(new Uri(soundFile, UriKind.Relative));
                 mediaPlayer.Play();
