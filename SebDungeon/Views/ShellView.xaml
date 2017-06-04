@@ -1,0 +1,41 @@
+﻿<Window x:Class="SebDungeon.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:local="clr-namespace:SebDungeon.Views"
+        mc:Ignorable="d"
+        FontSize="14"
+        Title="ShellView" Height="600" Width="800">
+    <DockPanel Margin="5">
+        <DockPanel DockPanel.Dock="Top">
+            <Button x:Name="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Height="25">start</Button>
+        </DockPanel>
+        <TextBlock x:Name="Message" DockPanel.Dock="Left" Width="300" FontSize="16" VerticalAlignment="Bottom"/>
+        <DockPanel>
+            <Grid DockPanel.Dock="Bottom" Width="220" Height="120">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button IsEnabled="{Binding Room.CanMoveNorth}" cal:Message.Attach="HandleOption('North')" x:Name="GoNorth" Width="30" Height="30" Grid.Column="1" Grid.Row="0">N</Button>
+                <Button IsEnabled="{Binding Room.CanMoveSouth}" cal:Message.Attach="HandleOption('South')" x:Name="GoSouth" Width="30" Height="30" Grid.Column="1" Grid.Row="2">S</Button>
+                <Button IsEnabled="{Binding Room.CanMoveWest}" cal:Message.Attach="HandleOption('West')" x:Name="GoWest" Width="30" Height="30" Grid.Column="0" Grid.Row="1">W</Button>
+                <Button IsEnabled="{Binding Room.CanMoveEast}" cal:Message.Attach="HandleOption('East')" x:Name="GoEast" Width="30" Height="30" Grid.Column="2" Grid.Row="1">E</Button>
+                <Button IsEnabled="{Binding CanFight}" cal:Message.Attach="HandleOption('Fight')" x:Name="GoFight" Height="30" Grid.Column="3" Grid.Row="0">fight</Button>
+                <Button IsEnabled="{Binding Room.HasGold}" cal:Message.Attach="HandleOption('Pickup')" x:Name="GoPickup" Height="30" Grid.Column="3" Grid.Row="1">pickup</Button>
+                <Button IsEnabled="{Binding Room.HasExit}" cal:Message.Attach="HandleOption('Exit')" x:Name="GoExit" Height="30" Grid.Column="3" Grid.Row="2">exit</Button>
+            </Grid>
+            <!-- main map -->
+            <Grid></Grid>
+        </DockPanel>
+    </DockPanel>
+</Window>
