@@ -19,6 +19,7 @@ namespace SebDungeon.ViewModels
         public string AlertMessage { get; set; }
         public bool CanFight { get; set; }
         public string AsciiDiagram { get; set; }
+        public bool IsStarted { get; set; }
 
         public ShellViewModel()
         {
@@ -27,6 +28,7 @@ namespace SebDungeon.ViewModels
 
         public void Start()
         {
+            IsStarted = true;
             ShowMessage("starting");
             Task.Run(() =>
             {

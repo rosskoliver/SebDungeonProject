@@ -23,5 +23,6 @@ namespace SebDungeon.Views
         {
             InitializeComponent();
         }
+
     }
 }

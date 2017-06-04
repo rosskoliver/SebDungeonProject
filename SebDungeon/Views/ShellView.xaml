@@ -10,11 +10,11 @@
         Title="ShellView" Height="600" Width="800">
     <DockPanel Margin="5">
         <DockPanel DockPanel.Dock="Top">
-            <Button x:Name="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Height="25" Background="#FF00FF3A">start</Button>
+            <Button x:Name="Start" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Height="25" Background="#FF00FF3A" Cursor="No">start</Button>
         </DockPanel>
         <TextBlock x:Name="Message" DockPanel.Dock="Left" Width="300" FontSize="16" VerticalAlignment="Bottom"/>
         <DockPanel>
-            <Grid DockPanel.Dock="Bottom" Width="400" Height="120">
+            <Grid DockPanel.Dock="Bottom" Width="400" Height="120" IsEnabled="{Binding IsStarted}" Cursor="Hand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -32,7 +32,7 @@
                 <Button IsEnabled="{Binding Room.CanMoveSouth}" cal:Message.Attach="HandleOption('South')" x:Name="GoSouth" Width="30" Height="30" Grid.Column="1" Grid.Row="2" Background="#FF09F9CE">S</Button>
                 <Button IsEnabled="{Binding Room.CanMoveWest}" cal:Message.Attach="HandleOption('West')" x:Name="GoWest" Width="30" Height="30" Grid.Column="0" Grid.Row="1" Background="#FF09F9CE">W</Button>
                 <Button IsEnabled="{Binding Room.CanMoveEast}" cal:Message.Attach="HandleOption('East')" x:Name="GoEast" Width="30" Height="30" Grid.Column="2" Grid.Row="1" Background="#FF09F9CE">E</Button>
-                <Button IsEnabled="{Binding CanFight}" cal:Message.Attach="HandleOption('Fight')" x:Name="GoFight" Height="30" Grid.Column="3" Grid.Row="0">
+                <Button IsEnabled="{Binding CanFight}" cal:Message.Attach="HandleOption('Fight')" x:Name="GoFight" Height="30" Grid.Column="3" Grid.Row="0" Foreground="White" >
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black" Offset="0"/>
