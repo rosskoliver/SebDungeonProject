@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace SebDungeon
 {
-    // seb was here 123 CHGV
+    // seb was here 123 CHGVIIU
 
     public class Bootstrapper : BootstrapperBase
     {
