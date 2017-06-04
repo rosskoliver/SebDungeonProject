@@ -70,7 +70,7 @@ namespace SebDungeon.ViewModels
                 var didMiss = result.Contains("miss");
                 string soundFile;
                 if(didMiss)
-                    soundFile = ""; // sebbie to do
+                    soundFile = "Audio/Swoosh 3-SoundBible.com-1573211927.mp3"; // sebbie to do
                 else
                     soundFile = "Audio/Swords Clashing-SoundBible.com-912903192.mp3";
                 var mediaPlayer = new MediaPlayer();
