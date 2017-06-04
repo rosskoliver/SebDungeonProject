@@ -10,6 +10,7 @@ using System.Windows;
 namespace SebDungeon
 {
     //Hi Daddy (write back☺)
+    //hi are you going to code something now?
 
     public class Bootstrapper : BootstrapperBase
     {
