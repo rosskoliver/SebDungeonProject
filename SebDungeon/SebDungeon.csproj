@@ -79,7 +79,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\Entities.cs" />
+    <Compile Include="ViewModels\Enemy.cs" />
+    <Compile Include="ViewModels\Hero.cs" />
+    <Compile Include="ViewModels\Room.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
