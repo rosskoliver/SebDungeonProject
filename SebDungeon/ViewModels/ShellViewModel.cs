@@ -18,6 +18,7 @@ namespace SebDungeon.ViewModels
         public string Message { get; set; } = "hello\r\n";
         public string AlertMessage { get; set; }
         public bool CanFight { get; set; }
+        public bool CanPickup { get; set; }
         public string AsciiDiagram { get; set; }
         public bool IsStarted { get; set; }
 
@@ -58,10 +59,27 @@ namespace SebDungeon.ViewModels
             }
             if (option == "Pickup")
             {
-                soundFile = "Audio/cash-register-05.wav";
-                ShowMessage("you pick up {0} gold pieces", Room.NumGold);
-                Hero.GoldCount += Room.NumGold;
-                Room.NumGold = 0;
+                if (Room.HasGold)
+                {
+                    soundFile = "Audio/cash-register-05.wav";
+                    ShowMessage("you pick up {0} gold pieces", Room.NumGold);
+                    Hero.GoldCount += Room.NumGold;
+                    Room.NumGold = 0;
+                }
+                if (Room.HasPotion)
+                {
+                    ShowMessage("You Pickup the Potion!");
+                    Hero.PotionCount += 1;
+                    Room.HasPotion = false;
+                }
+            }
+            if (option == "Use")
+            {
+                if (Hero.PotionCount > 0)
+                {
+                    var result = Hero.DrinkPotion();
+                    ShowMessage(result);
+                }
             }
             if (option == "Fight")
             {
@@ -101,6 +119,7 @@ namespace SebDungeon.ViewModels
             }
             CanFight = Room.TheEnemy != null && Room.TheEnemy.IsAlive;
             AsciiDiagram = Room.GetAsciiDiagram();
+            CanPickup = Room.HasGold || Room.HasPotion;
         }
 
         private void ShowMessage(string format, params object[] args)

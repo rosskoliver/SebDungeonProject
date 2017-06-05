@@ -14,14 +14,16 @@
         </DockPanel>
         <TextBlock x:Name="Message" DockPanel.Dock="Left" Width="300" FontSize="16" VerticalAlignment="Bottom"/>
         <DockPanel>
-            <Grid DockPanel.Dock="Bottom" Width="400" Height="120" IsEnabled="{Binding IsStarted}" Cursor="Hand">
+            <Grid DockPanel.Dock="Bottom" Width="467" Height="120" IsEnabled="{Binding IsStarted}" Cursor="Hand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -40,7 +42,8 @@
                         </LinearGradientBrush>
                     </Button.Background> fight
                 </Button>
-                <Button IsEnabled="{Binding Room.HasGold}" cal:Message.Attach="HandleOption('Pickup')" x:Name="GoPickup" Height="30" Grid.Column="3" Grid.Row="1" Background="#FFFFFF02">pickup</Button>
+                <Button IsEnabled="{Binding CanPickup}" cal:Message.Attach="HandleOption('Pickup')" x:Name="GoPickup" Height="30" Grid.Column="3" Grid.Row="1" Background="#FFFFFF02">pickup</Button>
+                <Button IsEnabled="{Binding Hero.CanUse}" cal:Message.Attach="HandleOption('Use')" x:Name="GoUse" Height="30" Grid.Column="6" Grid.Row="1" Background="#FFFFFF02">use</Button>
                 <Button IsEnabled="{Binding Room.HasExit}" cal:Message.Attach="HandleOption('Exit')" x:Name="GoExit" Height="30" Grid.Column="3" Grid.Row="2" Background="Lime">exit</Button>
                 <TextBlock Grid.Column="4" Grid.Row="0" Margin="5">name</TextBlock>
                 <TextBlock Grid.Column="4" Grid.Row="1" Margin="5" >hp</TextBlock>
@@ -48,6 +51,8 @@
                 <TextBlock Grid.Column="5" Grid.Row="0" Margin="5" x:Name="Hero_Name">name</TextBlock>
                 <TextBlock Grid.Column="5" Grid.Row="1" Margin="5" x:Name="Hero_HitPoints">hp</TextBlock>
                 <TextBlock Grid.Column="5" Grid.Row="2" Margin="5" x:Name="Hero_GoldCount">gold</TextBlock>
+                <TextBlock Grid.Column="7" Grid.Row="2" Margin="5" x:Name="Hero_PotionCount">Potion</TextBlock>
+                <TextBlock Grid.Column="6" Grid.Row="2" Margin="5" >Potions</TextBlock>
             </Grid>
             <!-- main map -->
             <Grid>

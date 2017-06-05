@@ -28,6 +28,7 @@ namespace SebDungeon
         public bool HasGold { get { return NumGold > 0; } }
         public bool HasEnemy { get { return TheEnemy != null; } }
         public Enemy TheEnemy { get; set; }
+        public bool HasPotion { get; set; }
 
         public static int NumRooms { get; private set; }
         private static Random _rand = new Random();
@@ -70,6 +71,7 @@ namespace SebDungeon
                 var enemyNames = new[] { "Goblin", "Orc", "Drow Elf", "Dragon", "Minotaur", "Howling Hag", "Vampire", "Sebbie the epic coder" };
                 TheEnemy = new Enemy() { HitPoints = _rand.Next(8) + 5, Name = enemyNames[_rand.Next(enemyNames.Length)] };
             }
+            if (_rand.Next(4) == 0) HasPotion = true;
         }
 
         public string GetDescription()
@@ -89,6 +91,8 @@ namespace SebDungeon
                 list.Add(string.Format("The room has a {0}!", TheEnemy.Name));
                 list.Add(string.Format(TheEnemy.GetDescription()));
             }
+            if (HasPotion)
+                list.Add(string.Format("This Room has a potion!"));
             return string.Join("\r\n", list);
         }
 
@@ -99,7 +103,7 @@ namespace SebDungeon
 ╔═══NNN═══╗
 ║    1 ggg║
 W g    g  E
-║X      g ║
+║X   p  g ║
 ╚═══SSS═══╝
 ";
             diagram = diagram.Replace("N", this.North == null ? "═" : " ");
@@ -109,6 +113,7 @@ W g    g  E
             diagram = diagram.Replace("g", this.NumGold > 0 ? "°" : " ");
             diagram = diagram.Replace("X", this.HasExit ? "▓" : " ");
             diagram = diagram.Replace("1", this.TheEnemy != null && this.TheEnemy.IsAlive ? "§" : " ");
+            diagram = diagram.Replace("p", this.HasPotion ? "♥" : " ");
             return diagram;
         }
     }

@@ -6,12 +6,19 @@ namespace SebDungeon
 {
     public class Hero : PropertyChangedBase
     {
+        private int _maxHitPoints = 15 + _rand.Next(10);
         public int GoldCount { get; set; } = 0;
-        public int HitPoints { get; set; } = 15 + _rand.Next(10);
+        public int HitPoints { get; set; }
+        public int PotionCount { get; set; } = _rand.Next(2);
         public string Name { get; set; }
         public bool IsAlive { get { return HitPoints > 0; } }
-
+        public bool CanUse {  get { return PotionCount > 0; } }
         private static Random _rand = new Random();
+
+        public Hero()
+        {
+            HitPoints = _maxHitPoints;
+        }
 
         public string GetDescription()
         {
@@ -39,6 +46,20 @@ namespace SebDungeon
             }
             enemy.HasFought = false;
             return string.Join("\r\n", list);
+        }
+
+        public string DrinkPotion()
+        {
+            if (PotionCount > 0)
+            {
+                PotionCount--;
+                var curHitpoints = HitPoints;
+                HitPoints += _rand.Next(5) + 3;
+                if (HitPoints > _maxHitPoints)
+                    HitPoints = _maxHitPoints;
+                return string.Format("you gain {0} hitpoints", HitPoints - curHitpoints);
+            }
+            return "you have no potions!";
         }
     }
 
