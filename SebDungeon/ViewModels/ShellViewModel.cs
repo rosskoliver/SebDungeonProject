@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SebDungeon.ViewModels
 {
@@ -21,6 +22,7 @@ namespace SebDungeon.ViewModels
         public bool CanPickup { get; set; }
         public string AsciiDiagram { get; set; }
         public bool IsStarted { get; set; }
+        public ImageSource RoomImage { get; set; }
 
         public ShellViewModel()
         {
@@ -31,16 +33,15 @@ namespace SebDungeon.ViewModels
         {
             IsStarted = true;
             ShowMessage("starting");
-            Task.Run(() =>
-            {
-                this.Hero = new Hero() { Name = "The Hero"  };
-                this.Room = new Room();
-                Room.Generate();
-                Room.HasExit = true;
 
-                ShowMessage(Room.GetDescription());
-                HandleOption(null);
-            });
+            this.Hero = new Hero() { Name = "The Hero" };
+            this.Room = new Room();
+            Room.Generate();
+            Room.HasExit = true;
+            ShowMessage(Room.GetDescription());
+
+            HandleOption(null);
+
 
         }
 
@@ -119,8 +120,66 @@ namespace SebDungeon.ViewModels
             }
             CanFight = Room.TheEnemy != null && Room.TheEnemy.IsAlive;
             AsciiDiagram = Room.GetAsciiDiagram();
+            RoomImage = CreateRoomImage(Room);
             CanPickup = Room.HasGold || Room.HasPotion;
         }
+
+        private ImageSource CreateRoomImage(Room room)
+        {
+            var asciiDiagram = room.GetAsciiDiagram();
+            var walls = BitmapFactory.FromContent(@"Graphics\Wilkituska_s_A4.png");
+            var gold = BitmapFactory.FromContent(@"Graphics\Yiingolds.png");
+            var potion = BitmapFactory.FromContent(@"Graphics\pixel_potions_set_2_by_linaivelle.png");
+            var enemy = BitmapFactory.FromContent(@"Graphics\goblin-hi[1].png");
+            var exit = BitmapFactory.FromContent(@"Graphics\stairs.png");
+
+            var writeableBmp = BitmapFactory.New(13 * 64, 10 * 64);
+            using (var context = writeableBmp.GetBitmapContext())
+            {
+                writeableBmp.Clear(Colors.LightGray);
+               for (int pass = 0; pass < 2; pass++)
+                {
+                    var x = 1;
+                    var y = 0;
+                    foreach (var c in asciiDiagram)
+                    {
+
+                        if (c == '\n') { y++; x = 1; continue; }
+                        if (c == '\r') continue;
+
+                        var sourceImage = walls;
+                        var x1 = 15.0;
+                        var y1 = 0.0;
+                        var w1 = 32;
+                        var h1 = 32;
+                        if (pass == 0)
+                        {
+                            x1 = 15; y1 = 0;
+                        }
+                        if(pass == 1)
+                        {
+                            if (c == '╔') { x1 = 0; y1 = 1; }
+                            if (c == '║') { x1 = 0; y1 = 1.5; }
+                            if (c == '╚') { x1 = 0; y1 = 2; }
+                            if (c == '╝') { x1 = 1; y1 = 2; }
+                            if (c == '═') { x1 = 0.5; y1 = 1; }
+                            if (c == '╗') { x1 = 1; y1 = 1; }
+                            if (c == '=') { x1 = 0.5; y1 = 2; }
+                            if (c == '|') { x1 = 1; y1 = 1.5; }
+                            if (c == '°') { x1 = 160 / 32.0; y1 = 80 / 32.0; sourceImage = gold; w1 = 42; h1 = 42;  }
+                            if (c == '♥') { x1 = 120 / 32.0; y1 = 40 / 32.0; sourceImage = potion; w1 = 45; h1 = 71; }
+                            if (c == '§') { x1 = 0; y1 = 0; sourceImage = enemy; w1 = 479; h1 = 588; }
+                            if (c == '▓') { x1 = 0; y1 = 0; sourceImage = exit; w1 = 48; h1 = 68; }
+                        }
+                        writeableBmp.Blit(new System.Windows.Rect(x * 64, y * 64, 64, 64), sourceImage, new System.Windows.Rect(x1 * 32, y1 * 32, w1, h1));
+
+                        x++;
+                    }
+                }
+            }
+            return writeableBmp;
+        }
+
 
         private void ShowMessage(string format, params object[] args)
         {

@@ -101,15 +101,15 @@ namespace SebDungeon
 
             var diagram = @"
 ╔═══NNN═══╗
-║    1 ggg║
+║    1 ggg|
 W g    g  E
-║X   p  g ║
-╚═══SSS═══╝
+║X   p  g |
+╚===SSS===╝
 ";
             diagram = diagram.Replace("N", this.North == null ? "═" : " ");
-            diagram = diagram.Replace("S", this.South == null ? "═" : " ");
+            diagram = diagram.Replace("S", this.South == null ? "=" : " ");
             diagram = diagram.Replace("W", this.West == null ? "║" : " ");
-            diagram = diagram.Replace("E", this.East == null ? "║" : " ");
+            diagram = diagram.Replace("E", this.East == null ? "|" : " ");
             diagram = diagram.Replace("g", this.NumGold > 0 ? "°" : " ");
             diagram = diagram.Replace("X", this.HasExit ? "▓" : " ");
             diagram = diagram.Replace("1", this.TheEnemy != null && this.TheEnemy.IsAlive ? "§" : " ");

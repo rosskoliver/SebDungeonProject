@@ -55,11 +55,12 @@
                 <TextBlock Grid.Column="6" Grid.Row="2" Margin="5" >Potions</TextBlock>
             </Grid>
             <!-- main map -->
-            <Grid>
-                <TextBlock x:Name="AsciiDiagram" FontFamily="Courier New" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="AsciiDiagram" FontFamily="Courier New" FontSize="20" HorizontalAlignment="Center" Visibility="Hidden">
                     data
                 </TextBlock>
-            </Grid>
+                <Image Source="{Binding RoomImage}"  HorizontalAlignment="Center" MinWidth="10" MinHeight="10" />
+            </StackPanel>
         </DockPanel>
     </DockPanel>
 </Window>
